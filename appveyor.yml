@@ -53,31 +53,41 @@ before_deploy:
 #---------------------------------#
 #      artifacts configuration    #
 #---------------------------------#
-
 artifacts:
-
   # pushing a single file
   - path: /.*\.zip/
 
+#---------------------------------#
+#       deploy configuration      #
+#---------------------------------#
 deploy:
-  description: 'Windows release'
-  # All the zipped artifacts will be deployed
-  artifact: /.*\.zip/
-  # TODO Regenerate this auth_token for your project, this one won't work for you. Here's how:
-  # - Go to 'https://github.com/settings/tokens/new' and generate a Token with only the
-  # `public_repo` scope enabled
-  # - Then go to 'https://ci.appveyor.com/tools/encrypt' and enter the newly generated token.
-  # - Enter the "encrypted value" below
-  auth_token:
-    secure: gDwPa1E1DOTxfz9AhFFGfi0H7aNMbPM+7b+QIBSJfBj5+r8r/vO50u1pE425a918
-  provider: GitHub
-  # deploy when a new tag is pushed and only on the stable channel
-  on:
-    # channel to use to produce the release artifacts
-    # NOTE make sure you only release *once* per target
-    # TODO you may want to pick a different channel
-    CHANNEL: stable
-    appveyor_repo_tag: true
+  # Deploy to GitHub Releases
+  - provider: GitHub
+    artifact: /.*\.zip/
+    auth_token:
+      secure: gDwPa1E1DOTxfz9AhFFGfi0H7aNMbPM+7b+QIBSJfBj5+r8r/vO50u1pE425a918
+    on:
+      CHANNEL: stable           
+      appveyor_repo_tag: true
+  
+  # description: 'Windows release'
+  # # All the zipped artifacts will be deployed
+  # artifact: /.*\.zip/
+  # # TODO Regenerate this auth_token for your project, this one won't work for you. Here's how:
+  # # - Go to 'https://github.com/settings/tokens/new' and generate a Token with only the
+  # # `public_repo` scope enabled
+  # # - Then go to 'https://ci.appveyor.com/tools/encrypt' and enter the newly generated token.
+  # # - Enter the "encrypted value" below
+  # auth_token:
+  #   secure: gDwPa1E1DOTxfz9AhFFGfi0H7aNMbPM+7b+QIBSJfBj5+r8r/vO50u1pE425a918
+  # provider: GitHub
+  # # deploy when a new tag is pushed and only on the stable channel
+  # on:
+  #   # channel to use to produce the release artifacts
+  #   # NOTE make sure you only release *once* per target
+  #   # TODO you may want to pick a different channel
+  #   CHANNEL: stable
+  #   appveyor_repo_tag: true
 
 branches:
   only:
