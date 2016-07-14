@@ -3,5 +3,9 @@ name = "winshot"
 version = "0.1.0"
 authors = ["Peter Olds <peter@olds.co>"]
 
+[[bin]]
+name = "winshot"
+path = "src/main.rs"
+
 [dependencies]
 clap = "2.0.4"
