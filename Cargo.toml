@@ -1,0 +1,7 @@
+[package]
+name = "winshot"
+version = "0.1.0"
+authors = ["Peter Olds <peter@olds.co>"]
+
+[dependencies]
+clap = "2.0.4"
