@@ -9,4 +9,3 @@ name = "winshot"
 path = "src/main.rs"
 
 [dependencies]
-clap = "2.0.4"
