@@ -1,6 +1,4 @@
-extern crate winapi;
-
-use winapi::user32;
+extern crate user32;
 
 fn main() {
     println!("Hello, world!");

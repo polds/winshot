@@ -6,6 +6,7 @@ authors = ["Peter Olds <peter@olds.co>"]
 
 [dependencies]
 winapi = "0.2.8"
+user32-sys = "0.2.0"
 
 [[bin]]
 name = "winshot"
