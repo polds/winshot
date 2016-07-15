@@ -4,9 +4,9 @@ version = "0.1.0"
 build = "src/main.rs"
 authors = ["Peter Olds <peter@olds.co>"]
 
+[dependencies]
+winapi = "0.2.8"
+
 [[bin]]
 name = "winshot"
 path = "src/main.rs"
-
-[dependencies]
-winapi = "0.2.8"
