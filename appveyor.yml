@@ -53,6 +53,19 @@ artifacts:
   # pushing a single file
   - path: /.*\.zip/
 
+#---------------------------------#
+#       deploy configuration      #
+#---------------------------------#
+deploy:
+  # Deploy to GitHub Releases
+  - provider: GitHub
+    artifact: /.*\.zip/
+    auth_token:
+      secure: gDwPa1E1DOTxfz9AhFFGfi0H7aNMbPM+7b+QIBSJfBj5+r8r/vO50u1pE425a918
+    on:
+      CHANNEL: stable           
+      appveyor_repo_tag: true
+
 branches:
   only:
     - master
