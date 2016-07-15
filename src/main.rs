@@ -1,3 +1,4 @@
+extern crate winshot;
 extern crate winapi;
 
 use winapi::user32;
