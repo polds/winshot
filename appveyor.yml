@@ -1,11 +1,8 @@
 environment:
   global:
     # This will be used as part of the zipfile name
-    # TODO change the project name
     PROJECT_NAME: winshot
-  # TODO feel free to delete targets/channels you don't need
   matrix:
-    # Stable channel
     - TARGET: i686-pc-windows-gnu
       CHANNEL: stable
     - TARGET: i686-pc-windows-msvc
@@ -43,7 +40,6 @@ before_deploy:
   # Generate artifacts for release
   - cargo build --release
   - mkdir staging
-  # TODO update this part to copy the artifacts that make sense for your project
   - ps: xcopy target\release\winshot.exe staging /e /h
   - cd staging
     # release zipfile will look like 'rust-everywhere-v1.2.3-x86_64-pc-windows-msvc'
@@ -56,19 +52,6 @@ before_deploy:
 artifacts:
   # pushing a single file
   - path: /.*\.zip/
-
-#---------------------------------#
-#       deploy configuration      #
-#---------------------------------#
-deploy:
-  # Deploy to GitHub Releases
-  - provider: GitHub
-    artifact: /.*\.zip/
-    auth_token:
-      secure: gDwPa1E1DOTxfz9AhFFGfi0H7aNMbPM+7b+QIBSJfBj5+r8r/vO50u1pE425a918
-    on:
-      CHANNEL: stable           
-      appveyor_repo_tag: true
 
 branches:
   only:
