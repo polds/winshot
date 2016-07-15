@@ -9,3 +9,4 @@ name = "winshot"
 path = "src/main.rs"
 
 [dependencies]
+winapi = "0.2.8"
