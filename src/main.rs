@@ -92,7 +92,7 @@ fn main() {
 
 		// Kick off the application loop
 		loop {
-			let pm = user32::PeekMessageW(&mut msg, 0 as HWND, 0, 0, winapi::winuser::PM_REMOTE);
+			let pm = user32::PeekMessageW(&mut msg, 0 as HWND, 0, 0, winapi::winuser::PM_REMOVE);
 
 			if pm == 0 {
 				continue;
