@@ -89,7 +89,7 @@ fn normalize_coords(rect: Rectangle) -> Rectangle {
     Rectangle{x: x, y: y, x2: x2, y2: y2}
 }
 
-get_screen_rect() -> Rectangle {
+fn get_screen_rect() -> Rectangle {
 	Rectangle{
 		x /* left */: user32::GetSystemMetrics(winapi::winuser::SM_XVIRTUALSCREEN),
 		y /* top */: user32::GetSystemMetrics(winapi::winuser::SM_YVIRTUALSCREEN),
