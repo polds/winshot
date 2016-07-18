@@ -34,7 +34,6 @@ build: false
 test_script:
   - cargo update
   - cargo build --verbose
-  - cargo run
   - cargo test
 
 before_deploy:
