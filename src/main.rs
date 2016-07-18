@@ -20,7 +20,7 @@ use winapi::winuser::WS_VISIBLE;
 use winapi::winuser::WNDCLASSW;
 
 use std::os::windows::ffi::OsStrExt;
-use std::ffi:OsStr;
+use std::ffi::OsStr;
 
 // convert normal string to wide string
 fn to_wstring(str: &str) -> *const u16 {
