@@ -149,7 +149,7 @@ fn main() {
 			hbrBackground: 0,
 			hCursor: user32::LoadCursorW(0 as HINSTANCE, winapi::winuser::IDC_CROSS),
 			hIcon: user32::LoadIconW(0 as HINSTANCE, winapi::winuser::IDI_APPLICATION),
-		}
+		};
 
 		user32::RegisterClassW(&wnd);
 		let rect = get_screen_rect();
@@ -166,14 +166,19 @@ fn main() {
 			0, // no menu
 			hInstance, // module_instance
 			0 as LPARAM,
-		)
+		);
 
 		user32::ShowWindow(win, winapi::winuser::SW_SHOW);
 		user32::ShowWindow(win, winapi::winuser::SW_SHOWMAXIMIZED);
 		user32::SetForegroundWindow(win);
 		
 
-		capture_screen_clipboard(win, 0, 0, 200, 200);
+		capture_screen_clipboard(win, Rectangle{
+			x: 0,
+			y: 0,
+			x2: 200,
+			y2: 200,
+		});
 		user32::DestroyWindow(win);
 	}
 }
