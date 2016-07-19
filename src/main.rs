@@ -163,7 +163,7 @@ fn main() {
 			// dimensions
 			0, 0, rect.x2, rect.y2,
 			0, // no parent
-			0, // no menu
+			0 as HWND, // no menu
 			hInstance, // module_instance
 			0 as LPARAM,
 		);
