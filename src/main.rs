@@ -24,7 +24,7 @@ use winapi::winuser::CF_BITMAP;
 use std::os::windows::ffi::OsStrExt;
 use std::ffi::OsStr;
 
-const g_class_name: str = "winshot";
+const g_class_name: &'static str = "winshot";
 
 // Rectangle represents screen coordinates
 struct Rectangle {
@@ -93,14 +93,14 @@ fn get_screen_rect() -> Rectangle {
 	Rectangle{
 		x /* left */: user32::GetSystemMetrics(winapi::winuser::SM_XVIRTUALSCREEN),
 		y /* top */: user32::GetSystemMetrics(winapi::winuser::SM_YVIRTUALSCREEN),
-		x2 /* right */: user32::GetSystemMetrics(winapi::winuser::SM_CXVIRTUALSCREEN) + x,
-		y2 /* bottom */: user32::GetSystemMetrics(winapi::winuser::SM_CYVIRTUALSCREEN) + y,
+		x2 /* right */: user32::GetSystemMetrics(winapi::winuser::SM_CXVIRTUALSCREEN) + user32::GetSystemMetrics(winapi::winuser::SM_XVIRTUALSCREEN),
+		y2 /* bottom */: user32::GetSystemMetrics(winapi::winuser::SM_CYVIRTUALSCREEN) + user32::GetSystemMetrics(winapi::winuser::SM_CYVIRTUALSCREEN),
 	}
 }
 
-fn capture_screen_clipboard(hwnd: HWND, rect: mut Rectangle) -> bool {
+fn capture_screen_clipboard(hwnd: HWND, mut rect: Rectangle) -> bool {
 	// normalize coordinates
-	rect = normalize_coords(rect);
+	let rect = normalize_coords(rect);
 	let w = rect.x2 - rect.x;
 	let h = rect.y2 - rect.y;
 
@@ -136,7 +136,7 @@ fn capture_screen_clipboard(hwnd: HWND, rect: mut Rectangle) -> bool {
 
 fn main() {
 	unsafe {
-		let hInstance = kernel32::GetModuleHandle(0 as LPCWSTR);
+		let hInstance = kernel32::GetModuleHandleW(0 as LPCWSTR);
 		let m_class_name = to_wstring(g_class_name);
 		let wnd = WNDCLASSW {
 			hInstance: hInstance,
@@ -156,7 +156,7 @@ fn main() {
 		let exstyle = winapi::winuser::WS_EX_TRANSPARENT;
 		let style = winapi::winuser::WS_POPUP;
 
-		let win = user32::CreateWindowEx(exstyle,
+		let win = user32::CreateWindowExW(exstyle,
 			m_class_name,
 			m_class_name,
 			style,
@@ -172,7 +172,6 @@ fn main() {
 		user32::ShowWindow(win, winapi::winuser::SW_SHOWMAXIMIZED);
 		user32::SetForegroundWindow(win);
 		
-
 		capture_screen_clipboard(win, Rectangle{
 			x: 0,
 			y: 0,
