@@ -14,6 +14,9 @@ use winapi::minwindef::DWORD;
 use winapi::minwindef::WPARAM;
 use winapi::minwindef::LPARAM;
 use winapi::minwindef::LRESULT;
+use winapi::minwindef::BOOL;
+use winapi::minwindef::TRUE;
+use winapi::minwindef::FALSE;
 use winapi::winnt::LPCWSTR;
 
 use winapi::winuser::WS_OVERLAPPEDWINDOW;
@@ -72,6 +75,7 @@ fn hide_console_window() {
 	}
 }
 
+// TODO figure out how the heck to use pointers
 fn normalize_coords(rect: Rectangle) -> Rectangle {
     let Rectangle{mut x, mut y, mut x2, mut y2} = rect;
 
@@ -115,9 +119,9 @@ fn capture_screen_clipboard(hwnd: HWND, mut rect: Rectangle) -> bool {
 	}
 
 	let mut ret = false;
-	if user32::OpenClipboard(hwnd) {
-		if user32::EmptyClipboard() {
-			if user32::SetClipboardData(CF_BITMAP, shot_bitmap) {
+	if user32::OpenClipboard(hwnd) as BOOL == TRUE {
+		if user32::EmptyClipboard() as BOOL == TRUE {
+			if user32::SetClipboardData(CF_BITMAP, shot_bitmap) as BOOL == TRUE {
 				ret = true;
 			}
 			user32::CloseClipboard();
