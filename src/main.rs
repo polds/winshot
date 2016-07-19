@@ -33,7 +33,15 @@ struct Rectangle {
 	y: i32,
 	x2: i32,
 	y2: i32,
-} 
+}
+
+macro_rules! switch(
+    ($var:expr { $($pred:expr => $body:block),+ _ => $default:block }) => (
+        $(if $var == $pred $body else)+
+
+        $default
+    )
+)
 
 // convert normal string to wide string
 #[allow(dead_code)]
@@ -46,17 +54,25 @@ fn to_wstring(str: &str) -> *const u16 {
 // it only processes the WM_DESTROY message to exit our window properly on close event.
 #[allow(dead_code)]
 pub unsafe extern "system" fn window_proc(h_wnd: HWND, msg: UINT, w_param: WPARAM, l_param: LPARAM) -> LRESULT {
-	if msg == winapi::winuser::WM_DESTROY {
-		user32::PostQuitMessage(0);
-	} else if msg == winapi::winuser::WM_MOUSEMOVE {
-		return 0 as LRESULT;
-	} else if msg == winapi::winuser::WM_LBUTTONDOWN {
-		return 0 as LRESULT;
-	} else if msg == winapi::winuser::WM_LBUTTONUP {
-		return 0 as LRESULT;
-	} else {
-		return user32::DefWindowProcW(h_wnd, msg, w_param, l_param);
-	}
+	use winapi::winuser::*;
+
+	switch!(msg {
+		WM_DESTROY => {
+			user32::PostQuitMessage(0);
+		},
+		WM_MOUSEMOVE => {
+			return 0 as LRESULT;
+		},
+		WM_LBUTTONDOWN => {
+			return 0 as LRESULT;
+		},
+		WM_LBUTTONUP => {
+			return 0 as LRESULT;
+		},
+		_ => {
+			user32::DefWindowProcW(h_wnd, msg, w_param, l_param);
+		},
+	})
 }
 
 // The following function hides the Console Window since we are building a GUI application.
