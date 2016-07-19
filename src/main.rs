@@ -15,8 +15,6 @@ use winapi::minwindef::WPARAM;
 use winapi::minwindef::LPARAM;
 use winapi::minwindef::LRESULT;
 use winapi::minwindef::BOOL;
-use winapi::minwindef::TRUE;
-use winapi::minwindef::FALSE;
 use winapi::winnt::LPCWSTR;
 
 use winapi::winuser::WS_OVERLAPPEDWINDOW;
@@ -119,9 +117,9 @@ fn capture_screen_clipboard(hwnd: HWND, mut rect: Rectangle) -> bool {
 	}
 
 	let mut ret = false;
-	if user32::OpenClipboard(hwnd) as BOOL == TRUE {
-		if user32::EmptyClipboard() as BOOL == TRUE {
-			if user32::SetClipboardData(CF_BITMAP, shot_bitmap) as BOOL == TRUE {
+	if user32::OpenClipboard(hwnd) as BOOL == winapi::minwindef::TRUE {
+		if user32::EmptyClipboard() as BOOL == winapi::minwindef::TRUE {
+			if user32::SetClipboardData(CF_BITMAP, shot_bitmap) as BOOL == winapi::minwindef::TRUE {
 				ret = true;
 			}
 			user32::CloseClipboard();
