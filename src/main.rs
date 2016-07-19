@@ -47,14 +47,14 @@ fn to_wstring(str: &str) -> *const u16 {
 pub unsafe extern "system" fn window_proc(h_wnd: HWND, msg: UINT, w_param: WPARAM, l_param: LPARAM) -> LRESULT {
 	if msg == winapi::winuser::WM_DESTROY {
 		user32::PostQuitMessage(0);
-	}
-
-	match msg {
-		winapi::winuser::WM_DESTROY => user32::PostQuitMessage(0),
-		winapi::winuser::WM_MOUSEMOVE => 0 as LRESULT,
-		winapi::winuser::WM_LBUTTONDOWN => 0 as LRESULT,
-		winapi::winuser::WM_LBUTTONUP => 0 as LRESULT,
-		_ => user32::DefWindowProcW(h_wnd, msg, w_param, l_param),
+	} else if msg == winapi::winuser::WM_MOUSEMOVE {
+		return 0 as LRESULT;
+	} else if msg == winapi::winuser::WM_LBUTTONDOWN {
+		return 0 as LRESULT;
+	} else if msg == winapi::winuser::WM_LBUTTONUP {
+		return 0 as LRESULT;
+	} else {
+		return user32::DefWindowProcW(h_wnd, msg, w_param, l_param);
 	}
 }
 
