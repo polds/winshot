@@ -112,9 +112,9 @@ fn capture_screen_clipboard(hwnd: HWND, mut rect: Rectangle) -> bool {
 	}
 
 	let mut ret = false;
-	if user32::OpenClipboard(hwnd) as BOOL == winapi::minwindef::TRUE {
-		if user32::EmptyClipboard() as BOOL == winapi::minwindef::TRUE {
-			if user32::SetClipboardData(CF_BITMAP, shot_bitmap) as BOOL == winapi::minwindef::TRUE {
+	if user32::OpenClipboard(hwnd) != 0 {
+		if user32::EmptyClipboard() != 0 {
+			if user32::SetClipboardData(CF_BITMAP, shot_bitmap) != 0 {
 				ret = true;
 			}
 			user32::CloseClipboard();
@@ -170,6 +170,7 @@ fn main() {
 		user32::SetForegroundWindow(win);
 		
 		capture_screen_clipboard(win, Rectangle{
+			// TODO use real values later
 			x: 0,
 			y: 0,
 			x2: 200,
