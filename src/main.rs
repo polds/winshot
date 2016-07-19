@@ -75,20 +75,6 @@ pub unsafe extern "system" fn window_proc(h_wnd: HWND, msg: UINT, w_param: WPARA
 	})
 }
 
-// The following function hides the Console Window since we are building a GUI application.
-#[allow(dead_code)]
-fn hide_console_window() {
-	let window = unsafe {
-		kernel32::GetConsoleWindow()
-	};
-
-	if window != std::ptr::null_mut() {
-		unsafe {
-			user32::ShowWindow(window, winapi::SW_HIDE)
-		};
-	}
-}
-
 // TODO figure out how the heck to use pointers
 fn normalize_coords(rect: Rectangle) -> Rectangle {
     let Rectangle{mut x, mut y, mut x2, mut y2} = rect;
