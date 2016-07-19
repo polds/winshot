@@ -35,14 +35,6 @@ struct Rectangle {
 	y2: i32,
 }
 
-macro_rules! switch(
-    ($var:expr { $($pred:expr => $body:block),+ _ => $default:block }) => (
-        $(if $var == $pred $body else)+
-
-        $default
-    )
-);
-
 // convert normal string to wide string
 #[allow(dead_code)]
 fn to_wstring(str: &str) -> *const u16 {
@@ -56,9 +48,10 @@ fn to_wstring(str: &str) -> *const u16 {
 pub unsafe extern "system" fn window_proc(h_wnd: HWND, msg: UINT, w_param: WPARAM, l_param: LPARAM) -> LRESULT {
 	use winapi::winuser::*;
 
-	switch!(msg {
+	match msg {
 		WM_DESTROY => {
 			user32::PostQuitMessage(0);
+			return 0 as LRESULT;
 		},
 		WM_MOUSEMOVE => {
 			return 0 as LRESULT;
@@ -70,9 +63,9 @@ pub unsafe extern "system" fn window_proc(h_wnd: HWND, msg: UINT, w_param: WPARA
 			return 0 as LRESULT;
 		},
 		_ => {
-			user32::DefWindowProcW(h_wnd, msg, w_param, l_param);
+			return user32::DefWindowProcW(h_wnd, msg, w_param, l_param);
 		},
-	})
+	}
 }
 
 // TODO figure out how the heck to use pointers
