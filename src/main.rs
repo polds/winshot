@@ -159,10 +159,10 @@ fn main() {
 			style,
 			// dimensions
 			0, 0, rect.x2, rect.y2,
-			0, // no parent
+			0 as HBRUSH, // no parent
 			0 as HWND, // no menu
 			hInstance, // module_instance
-			0 as LPARAM,
+			0 as HMENU,
 		);
 
 		user32::ShowWindow(win, winapi::winuser::SW_SHOW);
