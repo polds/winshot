@@ -159,8 +159,8 @@ fn main() {
 		let style = winapi::winuser::WS_POPUP;
 
 		let win = user32::CreateWindowExW(exstyle,
-			m_class_name.as_ptr() as *mut _,
-			m_class_name.as_ptr() as *mut _,
+			m_class_name,
+			m_class_name,
 			style,
 			// dimensions
 			0, 0, rect.x2, rect.y2,
