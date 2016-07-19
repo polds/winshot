@@ -35,13 +35,13 @@ struct Rectangle {
 	y2: i32,
 }
 
-macro_rules! switch{
+macro_rules! switch(
     ($var:expr { $($pred:expr => $body:block),+ _ => $default:block }) => (
         $(if $var == $pred $body else)+
 
         $default
     )
-}
+);
 
 // convert normal string to wide string
 #[allow(dead_code)]
