@@ -44,7 +44,6 @@ fn to_wstring(str: &str) -> *const u16 {
 
 // This is our window message handler function. Currently, 
 // it only processes the WM_DESTROY message to exit our window properly on close event.
-#[allow(dead_code)]
 pub unsafe extern "system" fn window_proc(h_wnd: HWND, msg: UINT, w_param: WPARAM, l_param: LPARAM) -> LRESULT {
 	use winapi::winuser::*;
 
@@ -53,6 +52,7 @@ pub unsafe extern "system" fn window_proc(h_wnd: HWND, msg: UINT, w_param: WPARA
 			user32::PostQuitMessage(0);
 			return 0 as LRESULT;
 		},
+		// TODO implement
 		WM_MOUSEMOVE => {
 			return 0 as LRESULT;
 		},
