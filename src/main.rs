@@ -108,7 +108,7 @@ fn capture_screen_clipboard(hwnd: HWND, mut rect: Rectangle) -> bool {
 	
 	if !gdi32::BitBlt(shot_dc, 0, 0, w, h, screen_dc, rect.x, rect.y, 0 as DWORD) {
 		println!("{:?}", "BitBlt failed? Perhaps.");
-		false
+		return false;
 	}
 
 	let mut ret = false;
